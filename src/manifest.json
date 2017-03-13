@@ -1,0 +1,8 @@
+{
+  "name": "Social-Bot-Automator-UI PWA",
+  "short_name": "Social-Bot-Automator-UI PWA",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fff",
+}
