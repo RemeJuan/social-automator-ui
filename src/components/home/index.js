@@ -70,7 +70,10 @@ export default class Home extends Component {
       [network]: [
         ...excluded,
         ...data
-      ]
+      ],
+      model: {
+        ...networkModel
+      }
     };
 
     this.setState(updatedState);
