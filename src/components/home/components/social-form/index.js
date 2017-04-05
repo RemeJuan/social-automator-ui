@@ -10,6 +10,7 @@ export default class SocialForm extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleCopy = this.handleCopy.bind(this);
   }
 
   handleChange(event) {
@@ -19,6 +20,11 @@ export default class SocialForm extends Component {
 
   handleSubmit(event) {
     this.props.submit(this.state);
+    event.preventDefault();
+  }
+
+  handleCopy(event) {
+    this.props.copy(this.state);
     event.preventDefault();
   }
 
@@ -50,6 +56,7 @@ export default class SocialForm extends Component {
           </div>
           <div className="col-xs-1">
             <button className="btn btn-primary">{btnValue}</button>
+            {this.state._id && <button className="btn btn-primary" onClick={this.handleCopy}>Copy</button>}
           </div>
         </form>
       </div>

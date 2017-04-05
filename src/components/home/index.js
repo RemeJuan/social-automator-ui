@@ -35,11 +35,15 @@ export default class Home extends Component {
         'dateTime' : '2017-03-22T04:00:00.000Z',
         'posted' : false,
         '__v' : 0
-      }]
+      }],
+      model: {
+        ...networkModel
+      }
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.updateState = this.updateState.bind(this);
+    this.handleCopy = this.handleCopy.bind(this);
   }
 
   handleSubmit(data) {
@@ -72,6 +76,11 @@ export default class Home extends Component {
     this.setState(updatedState);
   }
 
+  handleCopy(data) {
+    delete data._id;
+    this.setState({ model: data });
+  }
+
   componentWillMount() {
     // fetch(API_URL)
     Promise.resolve(this.state)
@@ -87,20 +96,20 @@ export default class Home extends Component {
         {browserName !== 'chrome' && <h3>This application is intended for use in Google Chrome ONLY!</h3>}
         <div className="network-container">
           <h3>Add Sheduled item</h3>
-          <SocialForm formData={networkModel} submit={this.handleSubmit} />
+          <SocialForm formData={model} submit={this.handleSubmit} />
         </div>
         <div className="network-container network-container--twitter">
           <h3>Twitter</h3>
           <SocialHeadings />
           {twitter.map(data => (
-            <SocialForm formData={data} submit={this.handleSubmit} />
+            <SocialForm formData={data} submit={this.handleSubmit} copy={this.handleCopy} />
           ))}
         </div>
         <div className="network-container network-container--instagram">
           <h3>Instagram</h3>
           <SocialHeadings />
           {instagram.map(data => (
-            <SocialForm formData={data} submit={this.handleSubmit} />
+            <SocialForm formData={data} submit={this.handleSubmit} copy={this.handleCopy} />
           ))}
         </div>
         </div>
