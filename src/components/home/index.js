@@ -1,8 +1,12 @@
 import { h, Component } from 'preact';
 import { SocialForm, SocialHeadings } from './components';
+import Filter from 'bad-words';
 import browser from 'detect-browser';
 
 import style from './style';
+
+const badWordFilter = new Filter();
+badWordFilter.addWords(['poes', 'p0es', 'p03s', 'po3s']);
 
 const API_URL = 'API_URL';
 const browserName = browser.name.toLowerCase();
@@ -62,14 +66,19 @@ export default class Home extends Component {
   }
 
   updateState(data) {
-    const {network} = data;
+    const {network, text} = data;
     const excluded = this.state[network].filter(obj => obj._id !== data._id);
+    const sterilized = {
+      ...data,
+      _id: '58bfcc3ac88c91768e8e2fe3',
+      text: badWordFilter.clean(text)
+    };
 
     const updatedState = {
       ...this.state,
       [network]: [
         ...excluded,
-        ...data
+        ...sterilized
       ],
       model: {
         ...networkModel
